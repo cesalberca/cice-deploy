@@ -1,6 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { http } from './http'
 
 export function App() {
-  useEffect(() => {}, [])
-  return <div></div>
+  const [message, setMessage] = useState('')
+
+  async function fetchMessage() {
+    const { data } = await http.get('/')
+    setMessage(data.message)
+  }
+
+  useEffect(() => {
+    fetchMessage()
+  }, [])
+  return <div>Message: {message}</div>
 }
